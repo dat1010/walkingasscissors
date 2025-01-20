@@ -117,6 +117,9 @@ func attack():
 		if direction == "down":
 			animated_sprite_2d.play("attack")
 			deal_attack_timer.start()
+	else:
+		attack_in_progress = false
+		global.player_current_attack = false
 
 
 func _on_deal_attack_timer_timeout() -> void:
