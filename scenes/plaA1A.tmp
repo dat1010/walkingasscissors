@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://dd2l0uy05g04x"]
+
+[ext_resource type="Texture2D" uid="uid://b47kt30us5lu4" path="res://assets/scissors.png" id="1_1umrm"]
+[ext_resource type="Script" path="res://scrips/player.gd" id="1_8nb5g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sgkx"]
+atlas = ExtResource("1_1umrm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjh1j"]
+atlas = ExtResource("1_1umrm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xr1u0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sgkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjh1j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l6njb"]
+size = Vector2(20, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b7vex"]
+radius = 18.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 3
+script = ExtResource("1_8nb5g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_xr1u0")
+autoplay = "default"
+frame = 1
+frame_progress = 0.336446
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_l6njb")
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_b7vex")
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
