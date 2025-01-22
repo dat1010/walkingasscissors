@@ -32,9 +32,9 @@ jobs:
 
       # 4. Export your Godot project to HTML5 / WebXR
       #    Replace "WebXR" below with the name of your actual export preset.
-      - name: Export Godot Project (HTML5/WebXR)
+      - name: Export Godot Project (HTML5)
         run: |
-          godot --headless --export-release "WebXR"
+          godot --headless --export-release "HTML5"
 
       # 5. Deploy to AWS S3
       - name: Deploy to S3
