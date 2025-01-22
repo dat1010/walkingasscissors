@@ -1,0 +1,59 @@
+name: Deploy Godot HTML5 to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the code
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # 2. Download and unzip Godot Headless (no editor UI)
+      #    (Make sure you reference the correct Godot version and platform!)
+      - name: Download Godot
+        run: |
+          wget https://downloads.tuxfamily.org/godotengine/3.5.2/Godot_v3.5.2-stable_linux_headless.64.zip -O godot_headless.zip
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          unzip godot_headless.zip -d godot_headless
+          chmod +x godot_headless/Godot_v3.5.2-stable_linux_headless.64
+
+      # 3. Export the project to HTML5
+      #    This assumes you have "HTML5" as an export preset in `export_presets.cfg`
+      - name: Export HTML5
+        run: |
+          godot_headless/Godot_v3.5.2-stable_linux_headless.64 \
+            --path . \
+            --export "HTML5" \
+            build/index.html
+        # NOTE: The output folder "build" must match the preset's `export_path` 
+        #       in your `export_presets.cfg`, or you can override it here if you like.
+
+      # 4. Deploy to S3 using s3-sync-action
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: walkingasscissors.com-game  # e.g. "my-bucket-name"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'       # change if different
+          SOURCE_DIR: 'build'          # This is where index.html and related files live
+
+      # 5. Invalidate the CloudFront cache so new build is served immediately
+      - name: Invalidate CloudFront Distribution
+        uses: chetan/invalidate-cloudfront-action@v1.3
+        with:
+          distribution: E7A0J7BUIQFLE  # e.g. "E123XYZ1234567"
+          paths: '/*'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'
