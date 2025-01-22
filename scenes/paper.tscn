@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://l5bnb61726g6"]
+
+[ext_resource type="Script" path="res://paper.gd" id="1_efik7"]
+[ext_resource type="Texture2D" uid="uid://b1su1xerm80wr" path="res://assets/paper.png" id="1_ht5l3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8er3p"]
+atlas = ExtResource("1_ht5l3")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd3ib"]
+atlas = ExtResource("1_ht5l3")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dldlb"]
+atlas = ExtResource("1_ht5l3")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nglsh"]
+atlas = ExtResource("1_ht5l3")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdjfn"]
+atlas = ExtResource("1_ht5l3")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td104"]
+atlas = ExtResource("1_ht5l3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1jblm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8er3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd3ib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dldlb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nglsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdjfn")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td104")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jb743"]
+size = Vector2(18, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmyfk"]
+size = Vector2(28, 25)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_efik7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1jblm")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_jb743")
+
+[node name="PaperHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PaperHitbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_lmyfk")
+
+[connection signal="area_entered" from="PaperHitbox" to="." method="_on_paper_hitbox_area_entered"]

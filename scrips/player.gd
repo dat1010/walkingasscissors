@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 100
-const BAS_HEALTH = 100
+const BASE_HEALTH = 100
 var current_direction = "none"
 @onready var attack_cooldown: Timer = $AttackCooldown
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -14,12 +14,14 @@ var enemy_in_attack_cooldown = true
 var health = 100
 var is_player_alive = true
 var attack_in_progress = false
+var paper_in_attack_range = false
 
 func _physics_process(delta):
 	player_movement(delta)
 	enemy_attack()
 	attack()
-	update_health()
+	paper_attack()
+	update_health_bar()
 	if health <= 0:
 		is_player_alive = false
 		health = 0
@@ -73,19 +75,20 @@ func play_animation(direction):
 		_:
 			animation.flip_h = false
 			
-				
-
 func player():
 	pass
 
 func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
 		enemy_in_attack_range = true
-		
+	if body.has_method("paper"):
+		paper_in_attack_range = true
 		
 func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
 		enemy_in_attack_range = false
+	if body.has_method("paper"):
+		paper_in_attack_range = false
 
 func enemy_attack():
 	if enemy_in_attack_range and enemy_in_attack_cooldown:
@@ -93,7 +96,10 @@ func enemy_attack():
 		enemy_in_attack_cooldown = false
 		attack_cooldown.start()
 		print(health)
-	
+
+func paper_attack():
+	if paper_in_attack_range and Input.is_action_just_pressed("attack"):
+		health = BASE_HEALTH
 
 func _on_attack_cooldown_timeout() -> void:
 	enemy_in_attack_cooldown = true
@@ -127,9 +133,9 @@ func _on_deal_attack_timer_timeout() -> void:
 	global.player_current_attack
 	attack_in_progress = false
 	
-func update_health():
+func update_health_bar():
 	health_bar.value = health
-	if health >= BAS_HEALTH:
+	if health >= BASE_HEALTH:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true

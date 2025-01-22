@@ -54,7 +54,8 @@ func deal_with_damage():
 			take_damage_cooldown.start()
 			can_take_damage = false
 			if health <= 0:
-				#animated_sprite_2d.play("death") TODO
+				#animated_sprite_2d.play("death")
+				#await animated_sprite_2d.animation_finished TODO this breaks the death of the rock. somehow the rock keeps going and wont die with this wait
 				self.queue_free()
 	
 func _on_take_damage_cooldown_timeout() -> void:

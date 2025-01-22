@@ -148,8 +148,6 @@ script = ExtResource("1_rlui0")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_sqm6o")
 animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.0826333
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 2
