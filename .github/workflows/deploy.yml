@@ -31,10 +31,9 @@ jobs:
           godot --headless --import || exit 0
 
       # 4. Export your Godot project to HTML5 / WebXR
-      #    Replace "WebXR" below with the name of your actual export preset.
-      - name: Export Godot Project (HTML5)
+      - name: Export Godot Project
         run: |
-          godot --headless --export-release "HTML5"
+          godot --headless --export-release "Web"
 
       # 5. Deploy to AWS S3
       - name: Deploy to S3
@@ -49,7 +48,7 @@ jobs:
           AWS_REGION: 'us-east-1'
           # Adjust SOURCE_DIR to where your HTML5 export actually lands.
           # By default, Godot might export to something like `./build/WebXR`
-          SOURCE_DIR: 'build/webxr'
+          SOURCE_DIR: 'bin'
 
       # 6. (Optional) Invalidate CloudFront so new changes are visible immediately
       - name: Invalidate CloudFront
