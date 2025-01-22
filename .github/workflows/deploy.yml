@@ -1,59 +1,64 @@
-name: Deploy Godot HTML5 to AWS
+name: Build and Deploy Godot Web
 
 on:
   push:
     branches:
       - main
 
+env:
+  GODOT_VERSION: '4.3.0'
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Check out the code
+      # 1. Check out your code
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      # 2. Download and unzip Godot Headless (no editor UI)
-      #    (Make sure you reference the correct Godot version and platform!)
-      - name: Download Godot
+      # 2. Setup Godot using chickensoft-games/setup-godot
+      - name: Install Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+          include-templates: true
+
+      # 3. Import the Godot project
+      - name: Initial Godot Import
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/3.5.2/Godot_v3.5.2-stable_linux_headless.64.zip -O godot_headless.zip
-          sudo apt-get update
-          sudo apt-get install -y unzip
-          unzip godot_headless.zip -d godot_headless
-          chmod +x godot_headless/Godot_v3.5.2-stable_linux_headless.64
+          godot --headless --import || exit 0
 
-      # 3. Export the project to HTML5
-      #    This assumes you have "HTML5" as an export preset in `export_presets.cfg`
-      - name: Export HTML5
+      # 4. Export your Godot project to HTML5 / WebXR
+      #    Replace "WebXR" below with the name of your actual export preset.
+      - name: Export Godot Project (HTML5/WebXR)
         run: |
-          godot_headless/Godot_v3.5.2-stable_linux_headless.64 \
-            --path . \
-            --export "HTML5" \
-            build/index.html
-        # NOTE: The output folder "build" must match the preset's `export_path` 
-        #       in your `export_presets.cfg`, or you can override it here if you like.
+          godot --headless --export-release "WebXR"
 
-      # 4. Deploy to S3 using s3-sync-action
+      # 5. Deploy to AWS S3
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: walkingasscissors.com-game  # e.g. "my-bucket-name"
+          # Put your real bucket name or reference a secret
+          AWS_S3_BUCKET: walkingasscissors.com-game
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'us-east-1'       # change if different
-          SOURCE_DIR: 'build'          # This is where index.html and related files live
+          AWS_REGION: 'us-east-1'
+          # Adjust SOURCE_DIR to where your HTML5 export actually lands.
+          # By default, Godot might export to something like `./build/WebXR`
+          SOURCE_DIR: 'build/webxr'
 
-      # 5. Invalidate the CloudFront cache so new build is served immediately
-      - name: Invalidate CloudFront Distribution
+      # 6. (Optional) Invalidate CloudFront so new changes are visible immediately
+      - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v1.3
         with:
-          distribution: E7A0J7BUIQFLE  # e.g. "E123XYZ1234567"
+          distribution: E7A0J7BUIQFLE
           paths: '/*'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-1'
+
