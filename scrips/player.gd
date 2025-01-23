@@ -30,50 +30,66 @@ func _physics_process(delta):
 		#TODO add end screen
 	
 func player_movement(delta):
-	
 	if Input.is_action_pressed("ui_right"):
 		current_direction = "right"
-		play_animation(current_direction)
+		play_animation(1)
 		velocity.x = SPEED
 		velocity.y = 0
 	elif Input.is_action_pressed("ui_left"):
 		current_direction = "left"
-		play_animation(current_direction)
+		play_animation(1)
 		velocity.x = -SPEED
 		velocity.y = 0
 	elif Input.is_action_pressed("ui_down"):
 		current_direction = "down"
-		play_animation(current_direction)
+		play_animation(1)
 		velocity.x = 0
 		velocity.y = SPEED
 	elif Input.is_action_pressed("ui_up"):
 		current_direction = "up"
-		play_animation(current_direction)
+		play_animation(1)
 		velocity.x = 0
 		velocity.y = -SPEED
 	else:
+		play_animation(0)
 		velocity.x = 0
 		velocity.y = 0
-		animated_sprite_2d.play("default")
-		#TODO attack at anytime
-		
-
 	move_and_slide()
 
-func play_animation(direction):
-	var animation = $AnimatedSprite2D
-	
-	match direction:
-		"right":
-			animation.flip_h = false
-		"left":
-			animation.flip_h = true
-		"up":
-			animation.flip_h = false
-		"down":
-			animation.flip_h = false
-		_:
-			animation.flip_h = false
+func play_animation(movement):
+	var direction = current_direction
+	if direction == "right":
+		animated_sprite_2d.flip_h = false
+		if movement == 1:
+			animated_sprite_2d.play("default")
+		elif movement == 0:
+			if attack_in_progress == false:
+				animated_sprite_2d.play("default")
+			else:
+				animated_sprite_2d.play("attack")
+	if direction == "left":
+		animated_sprite_2d.flip_h = true
+		if movement == 1:
+			animated_sprite_2d.play("default")
+		elif movement == 0:
+			if attack_in_progress == false:
+				animated_sprite_2d.play("default")
+			
+	if direction == "down":
+		animated_sprite_2d.flip_h = true
+		if movement == 1:
+			animated_sprite_2d.play("default")
+		elif movement == 0:
+			if attack_in_progress == false:
+				animated_sprite_2d.play("default")
+	if direction == "up":
+		animated_sprite_2d.flip_h = true
+		if movement == 1:
+			animated_sprite_2d.play("default")
+		elif movement == 0:
+			if attack_in_progress == false:
+				animated_sprite_2d.play("default")
+			
 			
 func player():
 	pass
@@ -110,27 +126,24 @@ func attack():
 		global.player_current_attack = true
 		attack_in_progress = true
 		if direction == "right":
-			animated_sprite_2d.flip_h = false
+			#animated_sprite_2d.flip_h = false
 			animated_sprite_2d.play("attack")
 			deal_attack_timer.start()
 		if direction == "left":
-			animated_sprite_2d.flip_h = true
-			animated_sprite_2d.play("attack")
-			deal_attack_timer.start()
-		if direction == "up":
+			#animated_sprite_2d.flip_h = true
 			animated_sprite_2d.play("attack")
 			deal_attack_timer.start()
 		if direction == "down":
 			animated_sprite_2d.play("attack")
 			deal_attack_timer.start()
-	else:
-		attack_in_progress = false
-		global.player_current_attack = false
+		if direction == "up":
+			animated_sprite_2d.play("attack")
+			deal_attack_timer.start()
 
 
 func _on_deal_attack_timer_timeout() -> void:
 	deal_attack_timer.stop()
-	global.player_current_attack
+	global.player_current_attack = false
 	attack_in_progress = false
 	
 func update_health_bar():
