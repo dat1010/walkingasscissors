@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://d62xhmytgg58"]
+[gd_scene load_steps=8 format=3 uid="uid://d62xhmytgg58"]
 
+[ext_resource type="Script" path="res://scrips/game_manager.gd" id="1_5r31k"]
 [ext_resource type="PackedScene" uid="uid://dd2l0uy05g04x" path="res://scenes/player.tscn" id="1_u3u7u"]
 [ext_resource type="Texture2D" uid="uid://dqweihxcfpy5s" path="res://assets/world_tiles.png" id="2_gdvuh"]
 [ext_resource type="PackedScene" uid="uid://dcso5kkk7l3bf" path="res://scenes/enemy.tscn" id="3_8ubiw"]
@@ -15,6 +16,9 @@ sources/0 = SubResource("TileSetAtlasSource_fq4gx")
 
 [node name="Game" type="Node2D"]
 position = Vector2(1, 0)
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_5r31k")
 
 [node name="Player" parent="." instance=ExtResource("1_u3u7u")]
 z_index = 1

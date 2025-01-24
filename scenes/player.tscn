@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dd2l0uy05g04x"]
+[gd_scene load_steps=19 format=3 uid="uid://dd2l0uy05g04x"]
 
 [ext_resource type="Texture2D" uid="uid://b47kt30us5lu4" path="res://assets/scissors.png" id="1_1umrm"]
 [ext_resource type="Script" path="res://scrips/player.gd" id="1_8nb5g"]
+[ext_resource type="PackedScene" uid="uid://bqqjxoay1p32c" path="res://scenes/end_screen.tscn" id="2_n4bbe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyiwl"]
 atlas = ExtResource("1_1umrm")
@@ -114,6 +115,7 @@ radius = 18.0
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 script = ExtResource("1_8nb5g")
+end_screen_scene = ExtResource("2_n4bbe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)

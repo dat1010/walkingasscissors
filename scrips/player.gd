@@ -8,6 +8,7 @@ var current_direction = "none"
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var deal_attack_timer: Timer = $DealAttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
+@export var end_screen_scene:PackedScene
 
 var enemy_in_attack_range = false
 var enemy_in_attack_cooldown = true
@@ -26,7 +27,8 @@ func _physics_process(delta):
 		is_player_alive = false
 		health = 0
 		print("Player has been killed")
-		self.queue_free() 
+		get_tree().change_scene_to_packed(end_screen_scene)
+		#self.queue_free() 
 		#TODO add end screen
 	
 func player_movement(delta):
