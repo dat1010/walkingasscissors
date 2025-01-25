@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 100
 const BASE_HEALTH = 100
 var current_direction = "none"
+signal player_died
 @onready var attack_cooldown: Timer = $AttackCooldown
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var deal_attack_timer: Timer = $DealAttackTimer
@@ -27,6 +28,7 @@ func _physics_process(delta):
 		is_player_alive = false
 		health = 0
 		print("Player has been killed")
+		emit_signal("player_died")
 		get_tree().change_scene_to_packed(end_screen_scene)
 		#self.queue_free() 
 		#TODO add end screen

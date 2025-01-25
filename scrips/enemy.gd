@@ -6,6 +6,7 @@ var player = null
 var health = 100
 var is_player_in_attack_zone = false
 var can_take_damage = true
+signal enemy_died
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var take_damage_cooldown: Timer = $TakeDamageCooldown
@@ -56,6 +57,7 @@ func deal_with_damage():
 			if health <= 0:
 				#animated_sprite_2d.play("death")
 				#await animated_sprite_2d.animation_finished TODO this breaks the death of the rock. somehow the rock keeps going and wont die with this wait
+				emit_signal("enemy_died")
 				self.queue_free()
 	
 func _on_take_damage_cooldown_timeout() -> void:
