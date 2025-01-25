@@ -1,0 +1,158 @@
+[gd_scene load_steps=9 format=3 uid="uid://vcr30el4ac0y"]
+
+[ext_resource type="Script" path="res://scrips/main_menu.gd" id="1_dc51k"]
+[ext_resource type="Texture2D" uid="uid://6gyt43gscco" path="res://assets/Screenshot 2025-01-25 150837.png" id="2_gip8a"]
+[ext_resource type="FontFile" uid="uid://c6agvjdbyuar2" path="res://assets/dogica.ttf" id="3_ayain"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2uwg"]
+texture = ExtResource("2_gip8a")
+modulate_color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xpde4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7w31t"]
+bg_color = Color(0.470076, 0.470076, 0.470076, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k71pi"]
+bg_color = Color(0.144063, 0.144063, 0.144063, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yejjt"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dc51k")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_v2uwg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -46.0
+offset_right = 169.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xpde4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7w31t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k71pi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yejjt")
+text = "Start Game"
+
+[node name="TutorialButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xpde4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7w31t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k71pi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yejjt")
+text = "Tutorial"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xpde4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7w31t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k71pi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yejjt")
+text = "Options"
+
+[node name="ExitGameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xpde4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7w31t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k71pi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yejjt")
+text = "Exit Game
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.5
+offset_top = -254.0
+offset_right = 150.5
+offset_bottom = -177.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.154876, 0.154876, 0.154876, 1)
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3_ayain")
+theme_override_font_sizes/font_size = 32
+text = "Walking As Scissors"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/TutorialButton" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]

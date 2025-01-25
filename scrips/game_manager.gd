@@ -28,7 +28,6 @@ func start_round(round_number: int) -> void:
 		var new_enemy = enemy_scene.instantiate()
 		add_child(new_enemy)
 		
-		# Position the enemy randomly
 		var random_pos = Vector2(
 			randf_range(spawn_min.x, spawn_max.x),
 			randf_range(spawn_min.y, spawn_max.y)
