@@ -30,33 +30,41 @@ func _physics_process(delta):
 		get_tree().change_scene_to_packed(end_screen_scene)
 		#self.queue_free() 
 		#TODO add end screen
-	
+		
+		
+var held_directions = []
+var direction = "right"
+
+
 func player_movement(delta):
+	var direction = Vector2.ZERO
+	
+	# Collect input:
+	if Input.is_action_pressed("ui_up"):
+		current_direction = "up"
+		play_animation(1)
+		direction.y -= 1
+	if Input.is_action_pressed("ui_down"):
+		current_direction = "down"
+		play_animation(1)
+		direction.y += 1
+	if Input.is_action_pressed("ui_left"):
+		current_direction = "left"
+		play_animation(1)
+		direction.x -= 1
 	if Input.is_action_pressed("ui_right"):
 		current_direction = "right"
 		play_animation(1)
-		velocity.x = SPEED
-		velocity.y = 0
-	elif Input.is_action_pressed("ui_left"):
-		current_direction = "left"
-		play_animation(1)
-		velocity.x = -SPEED
-		velocity.y = 0
-	elif Input.is_action_pressed("ui_down"):
-		current_direction = "down"
-		play_animation(1)
-		velocity.x = 0
-		velocity.y = SPEED
-	elif Input.is_action_pressed("ui_up"):
-		current_direction = "up"
-		play_animation(1)
-		velocity.x = 0
-		velocity.y = -SPEED
-	else:
-		play_animation(0)
-		velocity.x = 0
-		velocity.y = 0
+		direction.x += 1
+	
+	# Normalize to ensure consistent speed in all directions (including diagonals).
+	if direction != Vector2.ZERO:
+		direction = direction.normalized() * SPEED
+	
+	# Assign to the CharacterBody2D's built-in velocity and move:
+	velocity = direction
 	move_and_slide()
+	
 
 func play_animation(movement):
 	var direction = current_direction
