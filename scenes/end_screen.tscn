@@ -55,6 +55,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_gvhdl")
 
 [node name="RestartButton" type="Button" parent="Panel"]
+layout_mode = 0
 offset_left = 974.0
 offset_top = 560.0
 offset_right = 1095.0
@@ -72,6 +73,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4eonm")
 text = "Restart"
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 466.0
 offset_top = 109.0
 offset_right = 663.0
