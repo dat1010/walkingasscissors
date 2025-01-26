@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bj4mib8ejnxq7"]
+[gd_scene load_steps=8 format=3 uid="uid://bj4mib8ejnxq7"]
 
 [ext_resource type="Script" path="res://scrips/main_menu.gd" id="1_dc51k"]
 [ext_resource type="Texture2D" uid="uid://6gyt43gscco" path="res://assets/Screenshot 2025-01-25 150837.png" id="2_gip8a"]
-[ext_resource type="FontFile" uid="uid://c6agvjdbyuar2" path="res://assets/dogica.ttf" id="3_ayain"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2uwg"]
 texture = ExtResource("2_gip8a")
@@ -129,41 +128,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_yejjt")
 text = "Exit Game
 "
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.5
-offset_top = -254.0
-offset_right = 150.5
-offset_bottom = -177.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0.154876, 0.154876, 0.154876, 1)
-theme_override_constants/shadow_offset_y = 4
-theme_override_constants/outline_size = 16
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("3_ayain")
-theme_override_font_sizes/font_size = 32
-text = "Walking As Scissors"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 177.0
-offset_top = 153.0
-offset_right = 611.0
-offset_bottom = 390.0
-text = "testing"
-
 [connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/TutorialButton" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

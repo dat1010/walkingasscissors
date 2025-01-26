@@ -6,6 +6,7 @@ extends Node
 # 4. show end screen
 
 @export var enemy_scene : PackedScene
+@export var paper_scene : PackedScene
 @export var player_node_path: NodePath
 @export var spawn_min: Vector2 = Vector2(-150, -150)
 @export var spawn_max: Vector2 = Vector2(150, 150)
@@ -25,14 +26,23 @@ func start_round(round_number: int) -> void:
 	enemies_alive = 0 
 	
 	for i in range(round_number):
+		global.current_score = round_number
 		var new_enemy = enemy_scene.instantiate()
+		var new_paper = paper_scene.instantiate()
 		add_child(new_enemy)
+		add_child(new_paper)
 		
 		var random_pos = Vector2(
 			randf_range(spawn_min.x, spawn_max.x),
 			randf_range(spawn_min.y, spawn_max.y)
 		)
 		new_enemy.position = random_pos
+		
+		var random_pos_paper = Vector2(
+			randf_range(spawn_min.x-50, spawn_max.x+50),
+			randf_range(spawn_min.y-25, spawn_max.y+25)
+		)
+		new_paper.position = random_pos_paper
 		
 		new_enemy.connect("enemy_died", Callable(self, "_on_enemy_died"))
 		
