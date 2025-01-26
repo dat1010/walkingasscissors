@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://vcr30el4ac0y"]
+[gd_scene load_steps=9 format=3 uid="uid://bj4mib8ejnxq7"]
 
 [ext_resource type="Script" path="res://scrips/main_menu.gd" id="1_dc51k"]
 [ext_resource type="Texture2D" uid="uid://6gyt43gscco" path="res://assets/Screenshot 2025-01-25 150837.png" id="2_gip8a"]
@@ -152,7 +152,18 @@ text = "Walking As Scissors"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 177.0
+offset_top = 153.0
+offset_right = 611.0
+offset_bottom = 390.0
+text = "testing"
+
 [connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/TutorialButton" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
