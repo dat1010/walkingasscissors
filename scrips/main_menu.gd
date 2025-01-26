@@ -33,5 +33,5 @@ func _on_exit_game_button_pressed() -> void:
 func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	var response = body.get_string_from_utf8()
-	rich_text_label.text = response
+	rich_text_label.text = str(response_code)
 	
