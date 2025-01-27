@@ -7,7 +7,7 @@ extends Node
 @export var spawn_min: Vector2 = Vector2(-150, -150)
 @export var spawn_max: Vector2 = Vector2(150, 150)
 
-var current_round: int = 0
+var current_round: int = 1
 var enemies_alive: int = 0
 var game_active: bool = true
 
