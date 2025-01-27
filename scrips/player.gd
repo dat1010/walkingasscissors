@@ -70,37 +70,48 @@ func player_movement(delta):
 
 func play_animation(movement):
 	var direction = current_direction
+	
+	# Decide whether to flip horizontally based on direction
 	if direction == "right":
 		animated_sprite_2d.flip_h = false
-		if movement == 1:
-			animated_sprite_2d.play("default")
-		elif movement == 0:
-			if attack_in_progress == false:
-				animated_sprite_2d.play("default")
-			else:
-				animated_sprite_2d.play("attack")
-	if direction == "left":
+	elif direction == "left":
 		animated_sprite_2d.flip_h = true
-		if movement == 1:
+	elif direction == "down":
+		animated_sprite_2d.flip_h = false
+	elif direction == "up":
+		animated_sprite_2d.flip_h = false
+
+	if movement == 1:
+		if attack_in_progress:
+			animated_sprite_2d.play("attack")
+		else:
 			animated_sprite_2d.play("default")
-		elif movement == 0:
-			if attack_in_progress == false:
-				animated_sprite_2d.play("default")
-			
-	if direction == "down":
-		animated_sprite_2d.flip_h = true
-		if movement == 1:
+	else:
+		if attack_in_progress:
+			animated_sprite_2d.play("attack")
+		else:
 			animated_sprite_2d.play("default")
-		elif movement == 0:
-			if attack_in_progress == false:
-				animated_sprite_2d.play("default")
-	if direction == "up":
-		animated_sprite_2d.flip_h = true
-		if movement == 1:
-			animated_sprite_2d.play("default")
-		elif movement == 0:
-			if attack_in_progress == false:
-				animated_sprite_2d.play("default")
+
+				
+func attack():
+	var direction = current_direction
+	if Input.is_action_just_pressed("attack"):
+		global.player_current_attack = true
+		attack_in_progress = true
+		if direction == "right":
+			#animated_sprite_2d.flip_h = false
+			animated_sprite_2d.play("attack")
+			deal_attack_timer.start()
+		if direction == "left":
+			#animated_sprite_2d.flip_h = true
+			animated_sprite_2d.play("attack")
+			deal_attack_timer.start()
+		if direction == "down":
+			animated_sprite_2d.play("attack")
+			deal_attack_timer.start()
+		if direction == "up":
+			animated_sprite_2d.play("attack")
+			deal_attack_timer.start()
 			
 			
 func player():
@@ -132,25 +143,7 @@ func paper_attack():
 func _on_attack_cooldown_timeout() -> void:
 	enemy_in_attack_cooldown = true
 	
-func attack():
-	var direction = current_direction
-	if Input.is_action_just_pressed("attack"):
-		global.player_current_attack = true
-		attack_in_progress = true
-		if direction == "right":
-			#animated_sprite_2d.flip_h = false
-			animated_sprite_2d.play("attack")
-			deal_attack_timer.start()
-		if direction == "left":
-			#animated_sprite_2d.flip_h = true
-			animated_sprite_2d.play("attack")
-			deal_attack_timer.start()
-		if direction == "down":
-			animated_sprite_2d.play("attack")
-			deal_attack_timer.start()
-		if direction == "up":
-			animated_sprite_2d.play("attack")
-			deal_attack_timer.start()
+
 
 
 func _on_deal_attack_timer_timeout() -> void:
