@@ -45,8 +45,8 @@ func _on_enemy_hitbox_body_entered(body):
 		is_player_in_attack_zone = true
 
 func _on_enemy_hitbox_body_exited(body):
-		if body.has_method("player"):
-			is_player_in_attack_zone = false
+	if body.has_method("player"):
+		is_player_in_attack_zone = false
 
 func deal_with_damage():
 	if is_player_in_attack_zone and global.player_current_attack:

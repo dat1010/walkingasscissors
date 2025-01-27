@@ -117,10 +117,12 @@ max_length = 3
 
 [node name="Label" type="Label" parent="EnterHighScore"]
 layout_mode = 0
-offset_left = -113.0
-offset_top = 2.0
-offset_right = -11.0
-offset_bottom = 35.0
+offset_left = -201.0
+offset_top = 12.0
+offset_right = -6.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("3_cjuby")
+theme_override_font_sizes/font_size = 13
 text = "Enter Initials:"
 
 [node name="Submit" type="Button" parent="EnterHighScore"]

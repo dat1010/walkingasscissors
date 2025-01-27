@@ -1,9 +1,5 @@
 extends Node
 # todo create global variable for enemy, player and rock kill count
-# 1. show menu, option for tutorial and controlls
-# 2. show story scene
-# 3. show main game
-# 4. show end screen
 
 @export var enemy_scene : PackedScene
 @export var paper_scene : PackedScene
@@ -11,15 +7,13 @@ extends Node
 @export var spawn_min: Vector2 = Vector2(-150, -150)
 @export var spawn_max: Vector2 = Vector2(150, 150)
 
-var current_round: int = 1
+var current_round: int = 0
 var enemies_alive: int = 0
 var game_active: bool = true
 
 func _ready() -> void:
 	var player = get_node(player_node_path)
-	
 	player.connect("player_died", Callable(self, "_on_player_died"))
-
 	start_round(current_round)
 
 func start_round(round_number: int) -> void:
@@ -39,8 +33,8 @@ func start_round(round_number: int) -> void:
 		new_enemy.position = random_pos
 		
 		var random_pos_paper = Vector2(
-			randf_range(spawn_min.x-50, spawn_max.x+50),
-			randf_range(spawn_min.y-25, spawn_max.y+25)
+			randf_range(spawn_min.x-10, spawn_max.x+10),
+			randf_range(spawn_min.y-10, spawn_max.y+10)
 		)
 		new_paper.position = random_pos_paper
 		
