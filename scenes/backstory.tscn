@@ -1,0 +1,153 @@
+[gd_scene load_steps=13 format=3 uid="uid://bbrehgoc80618"]
+
+[ext_resource type="Script" path="res://scrips/backstory.gd" id="1_dv3n7"]
+[ext_resource type="Script" path="res://scrips/type_writer.gd" id="1_w3uj0"]
+[ext_resource type="Texture2D" uid="uid://6gyt43gscco" path="res://assets/Screenshot 2025-01-25 150837.png" id="2_l8ehl"]
+[ext_resource type="AudioStream" uid="uid://dxu6sxwrlnrbw" path="res://assets/audio/clack.wav" id="3_mstpl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tc55q"]
+texture = ExtResource("2_l8ehl")
+modulate_color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[sub_resource type="Animation" id="Animation_52ar8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_u054c"]
+resource_name = "type_writer"
+length = 13.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 13),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yuktn"]
+_data = {
+"RESET": SubResource("Animation_52ar8"),
+"type_writer": SubResource("Animation_u054c")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qf5a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eqq0"]
+bg_color = Color(0.470076, 0.470076, 0.470076, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfgac"]
+bg_color = Color(0.144063, 0.144063, 0.144063, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xaypd"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[node name="Backstory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dv3n7")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_tc55q")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -486.0
+offset_top = -212.5
+offset_right = 486.0
+offset_bottom = 212.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 45
+text = "You are scissors. You can’t cut. Your blades have been damaged from years and years of cutting and slashing. 
+
+But… you persist and just maybe you are better now."
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yuktn")
+}
+script = ExtResource("1_w3uj0")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_mstpl")
+
+[node name="ContinueButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -87.0
+offset_right = -46.0
+offset_bottom = -42.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3qf5a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4eqq0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jfgac")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xaypd")
+text = "Continue"
+
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]

@@ -1,0 +1,149 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqqjxoay1p32c"]
+
+[ext_resource type="Script" path="res://scrips/end_screen.gd" id="1_6nxq3"]
+[ext_resource type="Texture2D" uid="uid://6gyt43gscco" path="res://assets/Screenshot 2025-01-25 150837.png" id="1_iufup"]
+[ext_resource type="FontFile" uid="uid://c6agvjdbyuar2" path="res://assets/dogica.ttf" id="3_cjuby"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gvhdl"]
+texture = ExtResource("1_iufup")
+modulate_color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f0avp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rsut"]
+bg_color = Color(0.470076, 0.470076, 0.470076, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vq8l"]
+bg_color = Color(0.144063, 0.144063, 0.144063, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eonm"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.237539, 0.237539, 0.237539, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="GDScript" id="GDScript_ohhuy"]
+script/source = "extends Label
+
+"
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_6nxq3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_right = 1150.0
+offset_bottom = 655.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_gvhdl")
+
+[node name="RestartButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 974.0
+offset_top = 560.0
+offset_right = 1095.0
+offset_bottom = 605.0
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f0avp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4rsut")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8vq8l")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4eonm")
+text = "Restart"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 367.0
+offset_top = 86.0
+offset_right = 727.0
+offset_bottom = 119.0
+theme_override_fonts/font = ExtResource("3_cjuby")
+theme_override_font_sizes/font_size = 30
+text = "High Scores!"
+horizontal_alignment = 1
+script = SubResource("GDScript_ohhuy")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 188.0
+offset_right = 780.0
+offset_bottom = 580.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="EnterHighScore" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 142.0
+offset_right = 573.0
+offset_bottom = 181.0
+placeholder_text = "Initials"
+max_length = 3
+
+[node name="Label" type="Label" parent="EnterHighScore"]
+layout_mode = 0
+offset_left = -201.0
+offset_top = 12.0
+offset_right = -6.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("3_cjuby")
+theme_override_font_sizes/font_size = 13
+text = "Enter Initials:"
+
+[node name="Submit" type="Button" parent="EnterHighScore"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = -5.0
+offset_right = 239.0
+offset_bottom = 40.0
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f0avp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4rsut")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8vq8l")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4eonm")
+text = "Submit"
+
+[connection signal="pressed" from="Panel/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Panel/RestartButton" to="Label" method="_on_restart_button_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="pressed" from="EnterHighScore/Submit" to="." method="_on_submit_pressed"]
