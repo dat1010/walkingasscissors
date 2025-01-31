@@ -100,20 +100,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_k71pi")
 theme_override_styles/normal = SubResource("StyleBoxFlat_yejjt")
 text = "Tutorial"
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xpde4")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7w31t")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_k71pi")
-theme_override_styles/normal = SubResource("StyleBoxFlat_yejjt")
-text = "Options"
-
 [node name="ExitGameButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -157,5 +143,4 @@ Paper restores life."
 
 [connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/TutorialButton" to="." method="_on_tutorial_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
