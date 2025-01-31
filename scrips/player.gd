@@ -10,6 +10,8 @@ signal player_died
 @onready var deal_attack_timer: Timer = $DealAttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
 @export var end_screen_scene:PackedScene
+@onready var audio_stream_idle: AudioStreamPlayer2D = $AudioStreamIdle
+@onready var audio_stream_attack: AudioStreamPlayer2D = $AudioStreamAttack
 
 var enemy_in_attack_range = false
 var enemy_in_attack_cooldown = true
@@ -30,8 +32,6 @@ func _physics_process(delta):
 		print("Player has been killed")
 		emit_signal("player_died")
 		get_tree().change_scene_to_packed(end_screen_scene)
-		#self.queue_free() 
-		#TODO add end screen
 		
 		
 var held_directions = []
@@ -59,6 +59,7 @@ func player_movement(delta):
 		play_animation(1)
 		direction.x += 1
 	
+	
 	# Normalize to ensure consistent speed in all directions (including diagonals).
 	if direction != Vector2.ZERO:
 		direction = direction.normalized() * SPEED
@@ -84,15 +85,18 @@ func play_animation(movement):
 	if movement == 1:
 		if attack_in_progress:
 			animated_sprite_2d.play("attack")
+			audio_stream_attack.play()
 		else:
 			animated_sprite_2d.play("default")
+			#audio_stream_idle.play()
 	else:
 		if attack_in_progress:
 			animated_sprite_2d.play("attack")
+			audio_stream_attack.play()
 		else:
 			animated_sprite_2d.play("default")
+			#audio_stream_idle.play()
 
-				
 func attack():
 	var direction = current_direction
 	if Input.is_action_just_pressed("attack"):

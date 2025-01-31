@@ -1,5 +1,6 @@
 extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var is_player_in_attack_zone = false
 var is_enemy_in_attack_zone = false
@@ -28,6 +29,7 @@ func _on_paper_hitbox_body_exited(body: Node2D) -> void:
 
 func kill_paper():
 	is_enemy_in_attack_zone = true
-	animated_sprite_2d.play("death")
-	await animated_sprite_2d.animation_finished
-	self.queue_free()
+	animation_player.play("paper_break")
+	#animated_sprite_2d.play("death")
+	#await animated_sprite_2d.animation_finished
+	#self.queue_free()

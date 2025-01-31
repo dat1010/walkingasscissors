@@ -38,13 +38,16 @@ func _on_submit_pressed() -> void:
 func update_high_score_results(body):
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	var response = body.get_string_from_utf8()
-	
+	var headers = RichTextLabel.new()
+	headers.text = "Initials" + " " + "Score"
+	headers.fit_content = true
+	v_box_container.add_child(headers)
 	for user_data in data.data:
 		var label = RichTextLabel.new()
 		label.fit_content = true
 		var user_initials = user_data.user_initials
 		var user_score = user_data.score
-		label.text = user_initials + " " + str(user_score)
+		label.text = user_initials + "      " + str(user_score)
 		v_box_container.add_child(label)
 		
 func clear_all_childer():

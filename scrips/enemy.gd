@@ -39,7 +39,6 @@ func _on_detection_area_body_exited(body):
 func enemy():
 	pass
 	
-
 func _on_enemy_hitbox_body_entered(body):
 	if body.has_method("player"):
 		is_player_in_attack_zone = true
